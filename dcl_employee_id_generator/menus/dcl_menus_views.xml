@@ -1,0 +1,54 @@
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_hr_employee_id_list_root"
+              name="Employee ID Configuration"
+              parent="hr.menu_human_resources_configuration"
+              sequence="100"/>
+
+    <!-- Department is already handled by hr module, skip if not custom -->
+
+    <!-- Section Action & Menu -->
+    <record id="action_hr_section_dcl" model="ir.actions.act_window">
+        <field name="name">Sections</field>
+        <field name="res_model">hr.section</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_section_dcl"
+              name="Sections"
+              parent="menu_hr_employee_id_list_root"
+              sequence="10"
+              action="action_hr_section_dcl"/>
+
+    <!-- Branch Action & Menu -->
+    <record id="action_hr_branch_dcl" model="ir.actions.act_window">
+        <field name="name">Branches</field>
+        <field name="res_model">hr.branch</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_branch_dcl"
+              name="Branches"
+              parent="menu_hr_employee_id_list_root"
+              sequence="20"
+              action="action_hr_branch_dcl"/>
+
+    <!-- Employee ID List Action & Menu -->
+    <record id="action_employee_id_list_dcl" model="ir.actions.act_window">
+        <field name="name">Employee ID List</field>
+        <field name="res_model">hr.employee.id.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_employee_id_list"
+              name="Employee ID List"
+              parent="menu_hr_employee_id_list_root"
+              sequence="30"
+              action="action_employee_id_list_dcl"/>
+</odoo>
+
+
+
+
+
+

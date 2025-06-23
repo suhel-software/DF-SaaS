@@ -1,0 +1,17 @@
+<odoo>
+    <record id="view_hr_section_form_dcl" model="ir.ui.view">
+        <field name="name">hr.section.form.dcl</field>
+        <field name="model">hr.section</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="department_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

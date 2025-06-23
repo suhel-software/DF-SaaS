@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_hr_branch_form_dcl" model="ir.ui.view">
+        <field name="name">hr.branch.form.dcl</field>
+        <field name="model">hr.branch</field>
+        <field name="arch" type="xml">
+            <form string="Branch">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_hr_employee_form_dcl" model="ir.ui.view">
+        <field name="name">hr.employee.form.dcl</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="section_id"/>
+                <field name="branch_id"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="after">
+                <field name="employee_id" readonly="1"/>
+                <field name="allow_generate_employee_id" attrs="{'invisible': [('employee_id', '!=', False)]}"/>
+
+                <button name="action_generate_employee_id" string="Generate Employee ID" type="object"
+                        attrs="{'invisible': [('allow_generate_employee_id','!=',True)]}" class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_employee_id_list_tree_dcl" model="ir.ui.view">
+        <field name="name">employee.id.list.tree.dcl</field>
+        <field name="model">hr.employee.id.list</field>
+        <field name="arch" type="xml">
+            <tree string="Employee ID List">
+                <field name="employee_name"/>
+                <field name="employee_section"/>
+                <field name="employee_department"/>
+                <field name="employee_generated_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_employee_id_list_form_dcl" model="ir.ui.view">
+        <field name="name">employee.id.list.form.dcl</field>
+        <field name="model">hr.employee.id.list</field>
+        <field name="arch" type="xml">
+            <form string="Employee ID List" create="false" delete="true">
+                <sheet>
+                    <group>
+                        <field name="employee_id_ref"/>
+                        <field name="employee_name" readonly="1"/>
+                        <field name="employee_section" readonly="1"/>
+                        <field name="employee_department" readonly="1"/>
+                        <field name="employee_generated_id" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+</odoo>
