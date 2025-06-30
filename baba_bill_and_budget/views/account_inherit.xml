@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <!-- Add the fields conditionally for Bills -->
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name="type_id"/>
+                    <field name="advance_id"/>
+                    <field name="approve_amount"/>
+                    <field name="total_advance_approve"/>
+                    <field name="total_advance_taken"/>
+                    <field name="account_select"/>
+                    <field name="receive_amount"/>
+                    <field name="cheque"/>
+                    <field name="bank"/>
+                    <field name="narration"/>
+                </xpath>
+
+                <!-- Condition for buttons to appear only for Bills -->
+                <!--                <header>-->
+                <!--                    <button name="create_move_lines" string="Create Move Lines"-->
+                <!--                            type="object" class="btn-primary"-->
+                <!--                            attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"/>-->
+                <!--                </header>-->
+                <!--                <header>-->
+                <!--                    <button name="create_advance_lines" string="Create Advance Lines"-->
+                <!--                            type="object" class="btn-primary"-->
+                <!--                            attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"/>-->
+                <!--                </header>-->
+            </field>
+        </record>
+
+
+        <record id="res_company_move_form_inherit" model="ir.ui.view">
+            <field name="name">res.company.form.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="concern_type"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+

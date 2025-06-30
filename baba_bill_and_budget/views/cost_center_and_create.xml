@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_job_centerform" model="ir.ui.view">
+        <field name="name">job.center.form</field>
+        <field name="model">job.center</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group colspan="2">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="location"/>
+                        </group>
+                    </group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_job_center_tree" model="ir.ui.view">
+        <field name="name">job.center.tree</field>
+        <field name="model">job.center</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="location"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_job_create_form" model="ir.ui.view">
+        <field name="name">job.create.form</field>
+        <field name="model">job.create</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button string="Send Email" type="object"
+                            class="oe_highlight" icon="fa-envelope-o"
+                            name="send_assignment_email"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_budget_summary" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="budget_summary_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Budget Summary</span>
+                            </div>
+                        </button>
+
+                        <button name="action_open_work_order" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="work_order_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Work Order</span>
+                            </div>
+                        </button>
+                        <button name="action_open_advance_req_approve" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="advance_request_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Advance Request</span>
+                            </div>
+                        </button>
+
+                        <button name="action_open_advance_approve" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="advance_approve_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Advance Payment</span>
+                            </div>
+                        </button>
+
+                        <button name="action_open_bill_adjustment" type="object"
+                                class="oe_stat_button" icon="fa-calendar">
+                            <div class="o_stat_info">
+                                <field name="adjustment_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Bill Adjustment</span>
+                            </div>
+                        </button>
+                    </div>
+
+                    <group colspan="2">
+                        <group>
+                            <field name="job_center_id" placeholder="Cost Center"/>
+                            <field name="start_date" placeholder="Start Date"/>
+                            <field name="description" placeholder="Job Description"/>
+                            <field name="user_id" placeholder="Assign to"/>
+                        </group>
+                        <group>
+                            <field name="name" placeholder="Job Name"/>
+                            <field name="end_date" placeholder="End Date"/>
+                            <field name="reference_no" placeholder="Reference No"/>
+                            <field name="super_visor" placeholder="Supervisor Name"/>
+                        </group>
+                    </group>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_job_create_tree" model="ir.ui.view">
+        <field name="name">job.create.tree</field>
+        <field name="model">job.create</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="job_center_id"/>
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="super_visor"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="amount_approver_limit_action" model="ir.actions.act_window">
+        <field name="name">Amount Limit</field>
+        <field name="res_model">amount.approval</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="job_center_name" model="ir.actions.act_window">
+        <field name="name">Job Center</field>
+        <field name="res_model">job.center</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="job_create_name" model="ir.actions.act_window">
+        <field name="name">Job Create</field>
+        <field name="res_model">job.create</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="job_summary_name" model="ir.actions.act_window">
+        <field name="name">Job Summary</field>
+        <field name="res_model">job.summary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="work_order_number" model="ir.actions.act_window">
+        <field name="name">Work Order</field>
+        <field name="res_model">work.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="job_advance_name" model="ir.actions.act_window">
+        <field name="name">Advance Request and Approve</field>
+        <field name="res_model">cost.advance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="approve_advance_summary" model="ir.actions.act_window">
+        <field name="name">Approve Advance Summary</field>
+        <field name="res_model">approve.advance.summary</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="menu_bill_generate" model="ir.actions.act_window">
+        <field name="name">Bill Adjustment</field>
+        <field name="res_model">bill.adjustment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{'search_default_my_request': 1}</field>
+        <field name="view_id" eval="False"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a new approval request
+            </p>
+        </field>
+    </record>
+
+    <record id="action_re_budget_job_summary" model="ir.actions.act_window">
+        <field name="name">Re-Budget</field>
+        <field name="res_model">job.summary</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

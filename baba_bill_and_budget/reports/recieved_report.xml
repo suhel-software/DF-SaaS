@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_recieve_voucher">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="budget-form">
+                        <div class="budget-form">
+                            <div style="text-align: center;">
+                                <img t-if="doc.company_id.logo"
+                                     t-att-src="'data:image/png;base64,%s' % doc.company_id.logo.decode('utf-8')"
+                                     style="max-height: 100px;"/>
+                            </div>
+                            <div style="text-align: center; border: 2px solid #000; padding: 5px; margin: 0 auto 10px; width: 20%; font-weight: bold;">
+                                Received Voucher
+                            </div>
+
+                            <p style="text-align: center;font-size: medium;">
+                                <strong>Project:
+                                    <t t-esc="doc.company_id.name"/>
+                                </strong>
+                            </p>
+                        </div>
+
+                        <div>
+                            <p style="float: left; font-weight: bold;">Voucher No:
+                                <span style="font-weight: normal;">
+                                    <t t-esc="doc.name"/>
+                                </span>
+                            </p>
+
+                            <p style="float: right; font-weight: bold;">Date:
+                                <span style="font-weight: normal;">
+                                    <t t-esc="doc.date"/>
+                                </span>
+                            </p>
+                        </div>
+
+                        <hr style="clear: both; margin-top: 20px; margin-bottom: 20px;"/>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20%; border-bottom: 1px solid black;">Account Head</th>
+                                    <th style="width: 20%; border-bottom: 1px solid black;">Cheque No</th>
+                                    <th style="width: 20%; border-bottom: 1px solid black;">Description</th>
+                                    <th style="width: 20%; border-bottom: 1px solid black;">Dr</th>
+                                    <th style="width: 20%; border-bottom: 1px solid black;">Cr</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <t t-if="line.debit != 0 or line.credit != 0">
+                                        <tr>
+                                            <td style="border-bottom: 1px solid black; font-weight: normal;">
+                                                <t t-esc="line.account_id.name"/>
+                                            </td>
+                                            <td style="border-bottom: 1px solid black; font-weight: normal;">
+                                                <t t-esc="doc.cheque"/>
+                                            </td>
+                                            <td style="border-bottom: 1px solid black; font-weight: normal;">
+                                                <!-- <t t-esc="line.name"/> -->
+                                            </td>
+                                            <td style="border-bottom: 1px solid black; font-weight: normal;">
+                                                <t t-esc="line.debit"/>
+                                            </td>
+                                            <td style="border-bottom: 1px solid black; font-weight: normal;">
+                                                <t t-esc="line.credit"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Total</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        <t t-esc="sum(doc.line_ids.filtered(lambda l: l.debit != 0 or l.credit != 0).mapped('debit'))"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="sum(doc.line_ids.filtered(lambda l: l.debit != 0 or l.credit != 0).mapped('credit'))"/>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <br/>
+                        <tr>
+                            <td colspan="5" style="text-align: right; font-weight: bold;">
+                                In Words:
+                                <span t-esc="doc._get_total_debit_amount_words()"/>
+                            </td>
+                        </tr>
+                        <br/>
+                        <br/>
+                        <p>
+                            <strong>Narration:</strong>
+                            <span style="font-weight: normal;">
+                                <t t-esc="doc.narration"/>
+                            </span>
+                        </p>
+
+                        <div style="margin-top: 30px;">
+                            <p style="font-weight: bold; display: inline-block; margin-right: 10px;">Received By:</p>
+                            <hr style="display: inline-block; width: 80%; border-top: 1px solid black; margin: 0; vertical-align: middle;"/>
+                        </div>
+                        <br/>
+
+                        <!--                        <div style="margin-top: 50px; text-align: center;">-->
+                        <!--                            <div style="width: 19%; display: inline-block;">-->
+                        <!--                                <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>-->
+                        <!--                                <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>-->
+                        <!--                            </div>-->
+                        <!--                            <div style="width: 19%; display: inline-block;">-->
+                        <!--                                <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>-->
+                        <!--                                <p style="margin: 5px 0 0 0; font-weight: bold;">Checked by</p>-->
+                        <!--                            </div>-->
+                        <!--                            <div style="width: 19%; display: inline-block;">-->
+                        <!--                                <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>-->
+                        <!--                                <p style="margin: 5px 0 0 0; font-weight: bold;">Additional Director</p>-->
+                        <!--                            </div>-->
+                        <!--                            <div style="width: 19%; display: inline-block;">-->
+                        <!--                                <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>-->
+                        <!--                                <p style="margin: 5px 0 0 0; font-weight: bold;">Director</p>-->
+                        <!--                            </div>-->
+                        <!--                            <div style="width: 19%; display: inline-block;">-->
+                        <!--                                <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>-->
+                        <!--                                <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_1'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Checked by</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Additional Director</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Director</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_2'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Manager(F &amp; A)</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">CFO</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">COO Compliance Officer</p>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_3'">
+                            <div style="margin-top: 50px; text-align: left;">
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Accounts</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Recommended by</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Checked by</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Approved by</p>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_4'">
+                            <div style="margin-top: 50px; text-align: left;">
+                                <div style="width: 24%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 24%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Manager(F &amp; A)</p>
+                                </div>
+                                <div style="width: 24%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">DGM(F &amp; A)</p>
+                                </div>
+                                <div style="width: 24%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">General Manager</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_5'">
+                            <div style="margin-top: 50px; text-align: left;">
+                                <div style="width: 22%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 22%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Checked by</p>
+                                </div>
+                                <div style="width: 22%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Recommended by</p>
+                                </div>
+                                <div style="width: 22%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Approved by</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_6'">
+                            <div style="margin-top: 50px; text-align: left;">
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Accounts Officer</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Deputy Director</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Executive Director</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Managing Director</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">CEO</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_7'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 32%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 32%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">principal</p>
+                                </div>
+                                <div style="width: 32%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Deputy Director</p>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_8'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Prepared by</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Manager(F &amp; A)</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Checked by</p>
+                                </div>
+                                <div style="width: 23%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_9'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Accounts Officer</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Sr.Asst.Director</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">DGM</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Principal(Acting)</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Executive Director</p>
+                                </div>
+                                <div style="width: 16%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <t t-if="doc.company_id.concern_type == 'specific_concern_10'">
+                            <div style="margin-top: 50px; text-align: center;">
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Accounts Officer</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Sr.Asst.Director</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">DGM</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Executive Director</p>
+                                </div>
+                                <div style="width: 19%; display: inline-block;">
+                                    <p style="border-bottom: 1px solid black; padding-bottom: 5px; margin-bottom: 0;"></p>
+                                    <p style="margin: 5px 0 0 0; font-weight: bold;">Chairman</p>
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_portrait_custom"
+            model="report.paperformat">
+        <field name="name">Evaluation A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">13</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">43</field>
+        <field name="dpi">90</field>
+    </record>
+
+</odoo>

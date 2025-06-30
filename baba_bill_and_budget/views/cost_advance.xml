@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_cost_advance_form" model="ir.ui.view">
+        <field name="name">cost.advance.form</field>
+        <field name="model">cost.advance</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'statusbar_visible': 'draft,approved'}"/>
+
+                    <button string="Approve" type="object" class="oe_highlight" states="draft"
+                            name="action_approve"/>
+                    <button string="Paid" type="object" class="oe_highlight"
+                            name="mark_as_paid"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+
+                    <button name="action_reject" string="Reject" type="object"
+                            states="draft" class="btn-danger"/>
+
+
+                    <button string="Sent Mail" type="object"
+                            class="oe_highlight" name="send_advance_email"/>
+
+                    <button string="Generate Advance"
+                            type="object" class="oe_highlight"
+                            name="open_bill_form"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"
+                    />
+
+
+                </header>
+                <sheet>
+                    <group colspan="2">
+                        <group>
+                            <field name="user_id" placeholder="Request By"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="name_job_center" placeholder="Cost Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="user_id" placeholder="Assign to"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="app_amount"/>
+                            <field name="advance_amount" placeholder=" Advance Request Amount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="advance_approve" placeholder="Advance Approve Amount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="note" placeholder="Note"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="vendor_name" placeholder="Vendor Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="name_job_create" placeholder="Job Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="super_visor" placeholder="Supar-Visor"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="total_advance_approve"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="work_order_number" placeholder="Work Order Number"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="ref_no" placeholder="Reference No"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items" name="items"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Items" name="item_group">
+                                <field name="items" attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="item_name"/>
+                                        <field name="unit"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                        <field name="total" readonly="1"/>
+                                    </tree>
+                                </field>
+                                <field name="subtotal" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Approver" name="approver"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Approver" name="approver_group">
+                                <field name="approver" attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="option"/>
+                                        <field name="recommended_user_id"
+                                               attrs="{'invisible':[('option', '!=', 'recommendation')]}"/>
+                                        <field name="status_display"/>
+                                        <field name="note"/>
+                                        <field name="time_of_approval"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_cost_advance_tree" model="ir.ui.view">
+        <field name="name">cost.advance.tree</field>
+        <field name="model">cost.advance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name_job_center" placeholder="Cost Name"/>
+                <field name="name_job_create" placeholder="Job Name"/>
+                <!--                <field name="t_budget_from_job_summary"/>-->
+                <field name="advance_approve" placeholder=" Advance Request Amount"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

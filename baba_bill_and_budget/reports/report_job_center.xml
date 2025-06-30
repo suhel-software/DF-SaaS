@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_job_center">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.basic_layout">
+                    <div class="page">
+                        <div class="advance-form">
+                            <div style="text-align: center; border: 2px solid #000; padding: 5px; margin: 0 auto 10px; width: 25%; font-weight: bold;">
+                                Advance Requisition Form
+                            </div>
+                            <div style="clear: both;"></div>
+                            <div>
+                                <p style="font-size: smaller;">
+                                    <strong>To</strong>
+                                    <br/>
+                                    <strong>Chairman</strong>
+                                    <br/>
+                                    <!-- Fetch and display the company's partner name -->
+                                    <strong>
+                                        <t t-esc="res_company.name"/>
+                                    </strong>
+                                    <br/>
+                                    <strong>
+                                        <t t-esc="res_company.street"/>
+                                    </strong>
+                                    <strong>
+                                        <t t-esc="res_company.city"/>
+                                    </strong>
+                                </p>
+                            </div>
+                        </div>
+                        <style>
+                            .section {
+                            margin-bottom: 20px;
+                            }
+                            .box {
+                            border: 1px solid #ddd;
+                            padding: 10px;
+                            margin-bottom: 20px;
+                            }
+                            table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 10px;
+                            }
+                            table, th, td {
+                            border: 1px solid #ddd;
+                            }
+                            th, td {
+                            padding: 10px;
+                            text-align: left;
+                            }
+                        </style>
+
+                        <div class="section">
+                            <h2>Job Center Report</h2>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Name:</td>
+                                        <td>
+                                            <u>
+                                                <t t-esc="doc.name"/>
+                                            </u>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location:</td>
+                                        <td>
+                                            <u>
+                                                <t t-esc="doc.location"/>
+                                            </u>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <t t-foreach="doc.advance_records" t-as="advance">
+                            <div class="box">
+                                <h4>Advance Details of
+                                    <t t-esc="advance.name_job_create.name"/>
+                                </h4> <!-- Modified line -->
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Request By:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.user_id.name"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vendor Name:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.vendor_name.name"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cost Center Name:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.name_job_center.name"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Job Name:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.name_job_create.name"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.date"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Request Advance Amount:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.advance_amount"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Approved Advance Amount:</td>
+                                            <td>
+                                                <u>
+                                                    <t t-esc="advance.advance_approve"/>
+                                                </u>
+                                            </td>
+                                        </tr>
+                                        <!-- Add other fields -->
+                                    </tbody>
+                                </table>
+
+                                <div class="box">
+                                    <h2>Cost Advance Approvers</h2>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>User</th>
+                                                <th>Flow</th>
+                                                <th>Recommended Person</th>
+                                                <th>Status</th>
+                                                <th>Time of Recommendation/Approve</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-foreach="advance.approver" t-as="approver">
+                                                <tr>
+                                                    <td>
+                                                        <t t-esc="approver.user_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="approver.option"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="approver.recommended_user_id.name"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="approver.status_display"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-esc="approver.time_of_approval"/>
+                                                    </td>
+                                                </tr>
+                                            </t>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_portrait_custom"
+            model="report.paperformat">
+        <field name="name">Evaluation A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">10</field>
+        <field name="margin_bottom">13</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">43</field>
+        <field name="dpi">90</field>
+    </record>
+
+</odoo>
+
+

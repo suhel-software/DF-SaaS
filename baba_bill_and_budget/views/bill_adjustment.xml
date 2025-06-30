@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bill_adjustment_form" model="ir.ui.view">
+        <field name="name">bill.adjustment.form</field>
+        <field name="model">bill.adjustment</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" options="{'statusbar_visible': 'draft,approved,paid'}"/>
+
+                    <!-- Approve button -->
+                    <button string="Approve" type="object"
+                            class="oe_highlight" name="bill_approve"
+                            attrs="{'invisible': [('state', 'in', ['approved', 'paid' , 'rejected'])]}"/>
+
+                    <!-- Reject button -->
+                    <button name="action_reject" string="Reject" type="object"
+                            states="draft" class="btn-danger"/>
+
+                    <!-- Generate Bill button -->
+                    <button string="Generate Bill" type="object" class="oe_highlight"
+                            name="open_invoice_form"
+                            attrs="{'invisible': [('state', 'in', ['draft','paid','rejected'])]}"/>
+
+                    <!-- Paid button -->
+                    <button string="Paid" type="object" class="oe_highlight"
+                            name="mark_as_paid"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}"/>
+
+                    <!-- Send Mail button -->
+                    <button string="Send Mail" type="object" class="oe_highlight"
+                            name="send_bill_and_adjustment_email"
+                            attrs="{'invisible': [('state', 'in', ['approved','paid','rejected'])]}"
+                    />
+
+                    <button string="Attach Files" type="object"
+                            name="action_attach_files"
+                            class="oe_highlight"/>
+
+                </header>
+
+                <sheet>
+                    <group colspan="2">
+                        <group>
+                            <field name="name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="job_id"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <!--                            <field name="advance_taken"/>-->
+
+                            <field name="attachment" widget="attachment" filename="attachment_filename"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="work_order_number"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="total_advance_approve"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="total_advance_taken"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+<!--                            <field name="attachment_filename" invisible="1"-->
+<!--                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>-->
+                        </group>
+                        <group>
+                            <field name="job_center_id"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="app_amount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="appamount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="payable_amount"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="vendor_name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="ref_no" placeholder="Reference No"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="note"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Products" name="products"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Products" name="product_group">
+                                <field name="products"
+                                       attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="item_name"/>
+                                        <field name="unit"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                        <field name="total" readonly="1"/>
+                                        <field name="approved_amount"/>
+                                    </tree>
+                                </field>
+                                <field name="subtotal" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Approver" name="approver"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Approver" name="approver_group">
+                                <field name="approver"
+                                       attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="option"/>
+                                        <field name="recommended_user_id"
+                                               attrs="{'invisible':[('option', '!=', 'recommendation')]}"/>
+                                        <field name="status_display"/>
+                                        <field name="ba_note"/>
+                                        <field name="time_of_approval"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bill_adjustment_tree" model="ir.ui.view">
+        <field name="name">bill.adjustment.tree</field>
+        <field name="model">bill.adjustment</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="job_center_id"/>
+                <field name="name"/>
+                <field name="subtotal"/>
+                <field name="payable_amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bill_adjustment_attachment_wizard_form" model="ir.ui.view">
+        <field name="name">bill.adjustment.attachment.wizard.form</field>
+        <field name="model">bill.adjustment.attachment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Attach File">
+                <group>
+                    <field name="file" widget="binary"/>
+                    <field name="file_name"/>
+                </group>
+                <footer>
+                    <button string="Attach" type="object" name="action_upload_file" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

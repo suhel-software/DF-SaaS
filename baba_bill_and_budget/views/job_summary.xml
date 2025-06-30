@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_job_summary_form" model="ir.ui.view">
+        <field name="name">job.summary.form</field>
+        <field name="model">job.summary</field>
+        <field name="arch" type="xml">
+            <form string="Job Summary" states="draft">
+                <header>
+                    <field name="state" widget="statusbar" options="{'statusbar_visible': 'draft,approved'}"/>
+                    <button string="Approve" type="object" class="oe_highlight" name="create_and_approve"
+                            attrs="{'invisible': [('state', '=', 'approved')]}"/>
+                    <button name="action_reject" string="Reject" type="object" states="draft" class="btn-danger"/>
+                    <button name="send_recommendation_email"
+                            string="Sent Mail" type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ['approved','rejected'])]}"
+                    />
+                    <button name="toggle_additional_pages" string="Re-Budget" type="object"
+                            attrs="{'invisible': [('state', '!=', 'approved')]}" class="oe_highlight"/>
+                </header>
+
+                <sheet>
+                    <group colspan="2">
+                        <group>
+                            <field name="cost_center_id" placeholder="Cost Center Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="user_id" placeholder="Assign to"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="attachment" widget="attachment" filename="attachment_filename"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="attachment_filename" invisible="1"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="note" placeholder="Note" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="job_create_id" placeholder="Budget Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date" placeholder="Start Date"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="super_visor" placeholder="Supervisor Name"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="ref_no" placeholder="Reference No:"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Items" name="items"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Items" name="item_group">
+                                <field name="items" attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="item_name"/>
+                                        <field name="unit"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                        <field name="total" readonly="1"/>
+                                        <field name="approved_amount"/>
+                                    </tree>
+                                </field>
+                                <field name="subtotal" readonly="1"/>
+                                <field name="app_total" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="Approver" name="approver_ids"
+                              attrs="{'readonly': [('state', '!=', 'draft'), ('state', '=', 'approved')]}">
+                            <group string="Approver" name="approver_group">
+                                <field name="approver_ids" attrs="{'readonly': [('state', '=', 'approved')]}">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="option"/>
+                                        <field name="recommended_user_id"
+                                               attrs="{'invisible':[('option', '!=', 'recommendation')]}"/>
+                                        <field name="status_display"/>
+                                        <field name="b_note"/>
+                                        <field name="time_of_approval"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Re-Budget Items" name="additional_items"
+                              attrs="{'invisible': [('show_additional_pages', '=', False)]}">
+                            <group string="Re-Budget Items" name="additional_item_group">
+                                <field name="additional_item_ids"> <!-- New additional items field -->
+                                    <tree editable="bottom">
+                                        <field name="item_name"/>
+                                        <field name="unit"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                        <field name="total" readonly="1"/>
+                                        <field name="approved_amount"/>
+                                    </tree>
+                                </field>
+                                <field name="sub_total" readonly="1"/>
+                                <field name="apptotal" readonly="1"/>
+                            </group>
+                        </page>
+
+                        <page string="Re-Budget Approver" name="additional_approver_ids"
+                              attrs="{'invisible': [('show_additional_pages', '=', False)]}">
+                            <group string="Re-Budget Approver" name="additional_approver_group">
+                                <field name="additional_approver_ids">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="option"/>
+                                        <field name="recommended_user_id"
+                                               attrs="{'invisible':[('option', '!=', 'recommendation')]}"/>
+                                        <field name="status_display"/>
+                                        <field name="b_note"/>
+                                        <field name="time_of_approval"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    <!-- Add the show_additional_pages field here -->
+                    <field name="show_additional_pages" invisible="1"/>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_job_summary_tree" model="ir.ui.view">
+        <field name="name">job.summary.tree</field>
+        <field name="model">job.summary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="cost_center_id"/>
+                <field name="job_create_id"/>
+                <field name="subtotal"/>
+                <field name="app_total"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

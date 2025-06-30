@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_multi_approval_root" name="Bill And Budget"
+              web_icon="baba_bill_and_budget,static/description/asewee-removebg-preview.png"
+              sequence="10"
+              groups="baba_bill_and_budget.group_bill_and_budget_manager"
+    />
+
+    <menuitem id="menu_multi_approval" name="Configuration"
+              parent="menu_multi_approval_root" sequence="10"
+    />
+
+    <menuitem id="menu_user_limit" name="Amount Limit"
+              parent="menu_multi_approval" sequence="110"
+              groups="baba_bill_and_budget.group_amount_limit_approver"
+              action="amount_approver_limit_action"
+    />
+
+    <menuitem id="menu_job_center" name="Cost Center"
+              parent="menu_multi_approval" sequence="40"
+              action="job_center_name"
+    />
+
+    <menuitem id="menu_job_create" name="Job Create"
+              parent="menu_multi_approval" sequence="50"
+              action="job_create_name"
+    />
+
+    <menuitem id="menu_job_summary" name="Budget Summary"
+              parent="menu_multi_approval" sequence="60"
+              action="job_summary_name"
+    />
+
+    <menuitem id="menu_work_order" name="Work Order"
+              parent="menu_multi_approval" sequence="70"
+              action="work_order_number"
+    />
+
+    <menuitem id="menu_job_advance" name="Advance Request &amp; Approve"
+              parent="menu_multi_approval" sequence="80"
+              action="job_advance_name"
+    />
+
+    <menuitem id="menu_job_advance_taken" name="Approved Advance Amount Summary"
+              parent="menu_multi_approval" sequence="90"
+              action="approve_advance_summary"
+    />
+
+    <menuitem id="menu_bil_generate" name="Bill And Adjustment"
+              parent="menu_multi_approval" sequence="100"
+              action="menu_bill_generate"
+    />
+
+
+    <!--    <menuitem id="menu_recommendation_data"-->
+    <!--          name="Recommendations"-->
+    <!--          parent="menu_multi_approval"-->
+    <!--          action="action_combined_recommendation"-->
+    <!--          sequence="110"/>-->
+
+
+</odoo>

@@ -1,0 +1,57 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Bill And Budget Approval',
+    'version': '14.0',
+    'category': 'Bill And Budget',
+    'description': """ A module for bill and budget adjustment 
+    """,
+    'summary': '''
+    Bill And Budget Approver Module
+    ''',
+    'author': 'DEEN ISLAM',
+    'price': 31,
+    'currency': 'EUR',
+    'license': 'OPL-1',
+    # 'support': 'domiup.contact@gmail.com',
+    'website': '',
+    'depends': [
+        'hr',
+        'mail',
+        'product',
+        'account',
+    ],
+    'data': [
+        'data/school_fees_sequence.xml',
+        'security/access_right.xml',
+        'security/ir.model.access.csv',
+        # Add actions after all views.
+        'views/actions.xml',
+        'views/menu.xml',
+        'views/account_inherit.xml',
+        'views/amount_limit.xml',
+        'views/cost_center_and_create.xml',
+        'views/baba_cost_center.xml',
+        'views/job_summary.xml',
+        'views/work_order.xml',
+        'views/cost_advance.xml',
+        'views/bill_adjustment.xml',
+        # Add menu after actions.
+        'reports/report_action.xml',
+        'reports/report_job_summary.xml',
+        'reports/report_job_center.xml',
+        'reports/report_job_center_summary.xml',
+        'reports/report_cost_advance.xml',
+        'reports/report_bill_adjustment.xml',
+        'reports/report_job_center_bill_adjustment.xml',
+        'reports/account_payment_voucher_report.xml',
+        'reports/account_report.xml',
+        'reports/recieved_report.xml',
+        'reports/bank_voucher_report.xml',
+    ],
+    'images': ['static/description/planning.jpg'],
+    'test': [],
+    'demo': [],
+    'installable': True,
+    'active': False,
+    'application': True,
+}

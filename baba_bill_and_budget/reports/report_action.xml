@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <report id="report_job_center_card"
+            name="baba_bill_and_budget.report_job_center"
+            model="job.center"
+            string="Job Center Advance and Approve Report"
+            report_type="qweb-pdf"
+    />
+
+    <report id="report_job_center_summary_card"
+            name="baba_bill_and_budget.report_job_center_summary"
+            model="job.center"
+            string="Job Summary Report"
+            report_type="qweb-pdf"
+    />
+
+    <report id="report_job_center_bill_adjustment_card"
+            name="baba_bill_and_budget.report_job_center_bill_adjustment"
+            model="job.center"
+            string="Bill And Budget Report"
+            report_type="qweb-pdf"
+    />
+
+    <report id="report_job_summary_card"
+            name="baba_bill_and_budget.report_job_summary"
+            model="job.summary"
+            string="Job Summary Report"
+            report_type="qweb-pdf"
+    />
+
+    <report id="report_cost_advance_card"
+            name="baba_bill_and_budget.report_cost_advance"
+            model="cost.advance"
+            string="Advance Request and Approve Report"
+            report_type="qweb-pdf"
+    />
+
+    <report id="report_bill_adjustment_card"
+            name="baba_bill_and_budget.report_bill_adjustment"
+            model="bill.adjustment"
+            string="Bill And Adjustment Report"
+            report_type="qweb-pdf"
+    />
+
+     <report
+            id="action_bank_voucher"
+            name="baba_bill_and_budget.report_bank_voucher"
+            model="account.move"
+            string="Bank Voucher"
+            report_type="qweb-pdf"
+    />
+
+    <report
+            id="action_payment_voucher"
+            name="baba_bill_and_budget.report_bill_voucher"
+            model="account.move"
+            string="Payment Voucher"
+            report_type="qweb-pdf"
+    />
+
+    <report
+            id="action_payable_voucher"
+            name="baba_bill_and_budget.report_payable_voucher"
+            model="account.move"
+            string="Adjustment Voucher"
+            report_type="qweb-pdf"
+    />
+
+    <report
+            id="action_recived_voucher"
+            name="baba_bill_and_budget.report_recieve_voucher"
+            model="account.move"
+            string="Receive Voucher"
+            report_type="qweb-pdf"
+    />
+
+    <!--    <record id="report_job_summary" model="ir.actions.report">-->
+    <!--        <field name="name">Job Summary Report</field>-->
+    <!--        <field name="model">job.summary</field>-->
+    <!--        <field name="report_type">qweb-pdf</field>-->
+    <!--        <field name="binding_model_id" ref="baba_multi_approval.model_job_summary"/>-->
+    <!--        <field name="report_name">baba_multi_approval.report_job_summary</field>-->
+    <!--        <field name="report_file">baba_multi_approval.report_job_summary</field>-->
+    <!--    </record>-->
+
+    <!--        <record id="report_job_center" model="ir.actions.report">-->
+    <!--            <field name="name">Job center Report</field>-->
+    <!--            <field name="model">job.center</field>-->
+    <!--            <field name="report_type">qweb-pdf</field>-->
+    <!--            <field name="binding_model_id" ref="baba_multi_approval.model_job_center"/>-->
+    <!--            <field name="report_name">baba_multi_approval.report_job_center</field>-->
+    <!--            <field name="report_file">baba_multi_approval.report_job_center</field>-->
+    <!--        </record>-->
+
+
+    <!--            <report id="report_cost_advance_card"-->
+    <!--                    string="Cost Advance Report"-->
+    <!--                    model="cost.advance"-->
+    <!--                    report_type="qweb-pdf"-->
+    <!--                    name="baba_request_module.report_cost_advance"-->
+    <!--                    file="baba_request_module.report_cost_advance"-->
+    <!--            />-->
+
+    <!--        <record id="report_cost_advance" model="ir.actions.report">-->
+    <!--            <field name="name">Cost Advance Report</field>-->
+    <!--            <field name="model">cost.advance</field>-->
+    <!--            <field name="report_type">qweb-pdf</field>-->
+    <!--            <field name="binding_model_id" ref="baba_multi_approval.model_cost_advance"/>-->
+    <!--            <field name="report_name">baba_multi_approval.report_cost_advance</field>-->
+    <!--            <field name="report_file">baba_multi_approval.report_cost_advance</field>-->
+    <!--        </record>-->
+
+    <!--            <report id="report_bill_adjustment_card"-->
+    <!--                    string="Bill/Adjustment Report"-->
+    <!--                    model="bill.adjustment"-->
+    <!--                    report_type="qweb-pdf"-->
+    <!--                    name="baba_request_module.report_bill_adjustment"-->
+    <!--                    file="baba_request_module.report_bill_adjustment"-->
+    <!--            />-->
+
+    <!--        <record id="report_bill_adjustment" model="ir.actions.report">-->
+    <!--            <field name="name">Bill/Adjustment Report</field>-->
+    <!--            <field name="model">bill.adjustment</field>-->
+    <!--            <field name="report_type">qweb-pdf</field>-->
+    <!--            <field name="binding_model_id" ref="baba_multi_approval.model_bill_adjustment"/>-->
+    <!--            <field name="report_name">baba_multi_approval.report_bill_adjustment</field>-->
+    <!--            <field name="report_file">baba_multi_approval.report_bill_adjustment</field>-->
+    <!--        </record>-->
+
+</odoo>
